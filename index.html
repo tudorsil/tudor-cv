@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudor Silaghi - Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1a1a;
+            --paper: #f5f0eb;
+            --accent: #c45d3e;
+            --muted: #8a8278;
+            --light-line: #ddd5cc;
+            --card-bg: #fffcf8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* --- HEADER --- */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -120px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(196,93,62,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+            border: 3px solid var(--light-line);
+            flex-shrink: 0;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.4s;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--ink);
+        }
+
+        .hero-summary {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 600px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.6s;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.8s;
+        }
+
+        .hero-meta a, .hero-meta span {
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.3s;
+        }
+
+        .hero-meta a:hover { color: var(--accent); }
+
+        .hero-meta svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .hero-nav {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 1s;
+        }
+
+        .hero-nav a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 0.5rem 1.25rem;
+            border: 1px solid var(--light-line);
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .hero-nav a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .hero-nav .download-btn {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .hero-nav .download-btn:hover {
+            background: #a84d32;
+            border-color: #a84d32;
+            color: #fff;
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+        }
+
+        /* --- SECTION --- */
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--light-line);
+            padding-bottom: 0.75rem;
+        }
+
+        .section-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--ink);
+        }
+
+        .section-header .line {
+            flex: 1;
+            height: 0;
+        }
+
+        .section-header .num {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+        }
+
+        /* --- EXPERIENCE CARD --- */
+        .exp-card {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--light-line);
+        }
+
+        .exp-card:last-child { border-bottom: none; }
+
+        .exp-date {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+            padding-top: 0.25rem;
+        }
+
+        .exp-body h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.15rem;
+        }
+
+        .exp-company {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            font-style: italic;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .exp-body ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .exp-body ul li {
+            font-size: 0.8rem;
+            color: var(--muted);
+            padding: 0.25rem 0.75rem;
+            border: 1px solid var(--light-line);
+            border-radius: 100px;
+            font-weight: 400;
+            transition: all 0.3s;
+        }
+
+        .exp-body ul li:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .skill-item {
+            padding: 1.5rem;
+            border: 1px solid var(--light-line);
+            border-radius: 8px;
+            background: var(--card-bg);
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+        }
+
+        .skill-item h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 0.4rem;
+        }
+
+        .skill-item p {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* --- EDUCATION & CERTS --- */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .edu-item {
+            padding: 2rem;
+            border: 1px solid var(--light-line);
+            border-radius: 8px;
+            background: var(--card-bg);
+        }
+
+        .edu-item .edu-year {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-item h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .edu-item p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* --- LANGUAGES --- */
+        .lang-row {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+        }
+
+        .lang-item h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .lang-item span {
+            font-size: 0.8rem;
+            color: var(--muted);
+            padding: 0.2rem 0.6rem;
+            border: 1px solid var(--light-line);
+            border-radius: 100px;
+        }
+
+        /* --- CTA --- */
+        .cta {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+        }
+
+        .cta p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #fff;
+            background: var(--accent);
+            padding: 0.65rem 1.5rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: #a84d32;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--light-line);
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 700px) {
+            .hero { min-height: auto; padding: 4rem 1.5rem 3rem; }
+            .hero-inner { flex-direction: column; text-align: center; }
+            .hero-photo { width: 120px; height: 120px; }
+            .hero-nav { justify-content: center; }
+            .hero-meta { justify-content: center; }
+            .content { padding: 0 1.5rem 4rem; }
+            .exp-card {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .edu-grid { grid-template-columns: 1fr; }
+            .hero-meta { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <img src="badge.jpg" alt="Tudor Silaghi" class="hero-photo">
+            <div class="hero-text">
+            <div class="hero-label">Software Engineer</div>
+            <h1>Tudor Silaghi</h1>
+            <p class="hero-summary">
+                Experienced engineer building highly available, scalable distributed systems with Java, Spring, and AWS. Over a decade of crafting resilient microservices - from fintech to asset management to pricing platforms.
+            </p>
+            <div class="hero-meta">
+                <span>
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Remote, Europe
+                </span>
+                <a href="mailto:tudorsilaghi@gmail.com">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    tudorsilaghi@gmail.com
+                </a>
+                <a href="Tudor_Silaghi_CV.pdf" download>
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download CV
+                </a>
+            </div>
+            <nav class="hero-nav">
+                <a href="#experience">Experience</a>
+                <a href="#skills">Skills</a>
+                <a href="#education">Education & Certifications</a>
+                <a href="#languages">Languages</a>
+            </nav>
+            </div>
+        </div>
+    </section>
+
+    <main class="content">
+
+        <section id="experience" class="section reveal">
+            <div class="section-header">
+                <h2>Experience</h2>
+                <div class="line"></div>
+                <span class="num">01</span>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-date">Oct 2022 - Present</div>
+                <div class="exp-body">
+                    <h3>Software Engineer</h3>
+                    <div class="exp-company">m3ter · Remote</div>
+                    <p class="exp-desc">Pricing operations platform - designing and architecting complex solutions, building infrastructure with AWS CDK, and developing scalable distributed systems. Managing deployments, monitoring, and second-line support while mentoring new colleagues.</p>
+                    <ul>
+                        <li>Software Architecture</li>
+                        <li>AWS CDK</li>
+                        <li>Distributed Systems</li>
+                        <li>Performance Testing</li>
+                        <li>Code Reviews</li>
+                        <li>Mentoring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-date">Jan 2022 - Oct 2022</div>
+                <div class="exp-body">
+                    <h3>Senior Java Software Engineer</h3>
+                    <div class="exp-company">Tarya Fintech · Remote</div>
+                    <p class="exp-desc">Financial solutions provider - building resilient distributed systems across retail, core, and mobile banking. Writing technical documentation, implementing tests, and participating in Agile Scrum with product owners and stakeholders.</p>
+                    <ul>
+                        <li>Distributed Systems</li>
+                        <li>Agile/Scrum</li>
+                        <li>Integration Testing</li>
+                        <li>Monitoring</li>
+                        <li>Mentoring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-date">May 2019 - Dec 2021</div>
+                <div class="exp-body">
+                    <h3>Senior Java Software Engineer</h3>
+                    <div class="exp-company">Legal & General · Remote</div>
+                    <p class="exp-desc">Europe's largest asset manager - developing distributed systems with comprehensive testing including unit, integration, and performance benchmarks. Deploying across QA, staging, and production environments with debugging, monitoring, and second-line support.</p>
+                    <ul>
+                        <li>Distributed Systems</li>
+                        <li>Performance Benchmarks</li>
+                        <li>Multi-env Deployments</li>
+                        <li>Production Support</li>
+                        <li>Mentoring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-date">Mar 2016 - May 2019</div>
+                <div class="exp-body">
+                    <h3>Java Software Engineer</h3>
+                    <div class="exp-company">Paddy Power Betfair · Romania</div>
+                    <p class="exp-desc">Sports betting and gaming operator - developing microservices with Spring, Kafka, and DevOps tools. Managing deployments across multiple environments, conducting code reviews, and actively participating in the agile development lifecycle.</p>
+                    <ul>
+                        <li>Microservices</li>
+                        <li>Spring</li>
+                        <li>Kafka</li>
+                        <li>DevOps</li>
+                        <li>Code Reviews</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-date">Oct 2013 - Mar 2016</div>
+                <div class="exp-body">
+                    <h3>Full-stack Developer</h3>
+                    <div class="exp-company">ISDC - Endava Group · Romania</div>
+                    <p class="exp-desc">Designing technical solutions aligned with requirements, performing system maintenance, resolving critical bugs, and managing acceptance and production releases. Communicating with clients and mentoring junior colleagues.</p>
+                    <ul>
+                        <li>Java</li>
+                        <li>Spring</li>
+                        <li>Client Communication</li>
+                        <li>Release Management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exp-card">
+                <div class="exp-date">Feb 2013 - Oct 2013</div>
+                <div class="exp-body">
+                    <h3>Software Developer</h3>
+                    <div class="exp-company">LVA Romania · Romania</div>
+                    <p class="exp-desc">Developing internal projects in Java and Spring.</p>
+                    <ul>
+                        <li>Java</li>
+                        <li>Spring</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section reveal">
+            <div class="section-header">
+                <h2>Skills</h2>
+                <div class="line"></div>
+                <span class="num">02</span>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <h4>Java</h4>
+                    <p>Core language · OCP Java SE 6 certified</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Spring Framework</h4>
+                    <p>Boot · Cloud · Security · Data</p>
+                </div>
+                <div class="skill-item">
+                    <h4>AWS Cloud</h4>
+                    <p>CDK · Lambda · DynamoDB · SQS · S3</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Architecture</h4>
+                    <p>Microservices · Event-driven · Distributed</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Databases</h4>
+                    <p>SQL · NoSQL · DynamoDB · PostgreSQL</p>
+                </div>
+                <div class="skill-item">
+                    <h4>DevOps</h4>
+                    <p>Docker · CI/CD · Kafka · Monitoring</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section reveal">
+            <div class="section-header">
+                <h2>Education & Certifications</h2>
+                <div class="line"></div>
+                <span class="num">03</span>
+            </div>
+            <div class="edu-grid">
+                <div class="edu-item">
+                    <div class="edu-year">2013</div>
+                    <h4>Bachelor - Computer Science</h4>
+                    <p>Technical University, Cluj-Napoca</p>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-year">CERTIFICATION</div>
+                    <h4>OCP Java SE 6 Programmer</h4>
+                    <p>Oracle Certified Professional</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="languages" class="section reveal">
+            <div class="section-header">
+                <h2>Languages</h2>
+                <div class="line"></div>
+                <span class="num">04</span>
+            </div>
+            <div class="lang-row">
+                <div class="lang-item">
+                    <h4>Romanian</h4>
+                    <span>Native</span>
+                </div>
+                <div class="lang-item">
+                    <h4>English</h4>
+                    <span>C1 - Advanced</span>
+                </div>
+                <div class="lang-item">
+                    <h4>German</h4>
+                    <span>A1 - Beginner</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <section class="cta">
+        <h2>Open to new opportunities</h2>
+        <p>Whether it's a contract, a full-time role, or an interesting project - let's talk.</p>
+        <a href="mailto:tudorsilaghi@gmail.com" class="cta-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            tudorsilaghi@gmail.com
+        </a>
+    </section>
+
+    <footer class="footer">
+        <p>Tudor Silaghi · <a href="mailto:tudorsilaghi@gmail.com">tudorsilaghi@gmail.com</a> · Remote, Europe</p>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
